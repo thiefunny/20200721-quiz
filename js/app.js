@@ -30,6 +30,7 @@ const submitButton = document.querySelector(".next");
 const resetButton = document.querySelector(".reset");
 const radio = document.querySelectorAll("input");
 const h1El = document.querySelector("h1");
+const ulEl = document.querySelector("ul");
 const progressCounter = document.querySelector(".progress__counter");
 let liCreate = document.createElement("li");
 let labelCreate = document.createElement("label");
@@ -37,12 +38,19 @@ let inputCreate = document.createElement("input");
 
 // <li class="li"><label for="radiobutton1"><input type="radio" id="radiobutton1" name="answers">question1</label><i></i></li>
 
-
-
 load = () => {
     h1El.innerHTML = questionsArray[data.questionNumber]['question'];
     progressCounter.innerHTML = `${data.questionNumber+1} of ${questionsArray.length}`;
 
+    liCreate.setAttribute("class", "li");
+    labelCreate.setAttribute("for", `radiobutton${data.questionNumber}`);
+    inputCreate.setAttribute("type", "radio");
+    inputCreate.setAttribute("id", `radiobutton${data.questionNumber}`);
+    inputCreate.setAttribute("name", `answers`);
+    liCreate.appendChild(labelCreate);
+    ulEl.appendChild(liCreate);
+    labelCreate.appendChild(inputCreate);
+    labelCreate.insertAdjacentHTML('beforeend', "AAAAA");
 }
 
 load();
