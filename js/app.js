@@ -32,25 +32,40 @@ const radio = document.querySelectorAll("input");
 const h1El = document.querySelector("h1");
 const ulEl = document.querySelector("ul");
 const progressCounter = document.querySelector(".progress__counter");
+
 let liCreate = document.createElement("li");
-let labelCreate = document.createElement("label");
-let inputCreate = document.createElement("input");
 
 // <li class="li"><label for="radiobutton1"><input type="radio" id="radiobutton1" name="answers">question1</label><i></i></li>
 
 load = () => {
     h1El.innerHTML = questionsArray[data.questionNumber]['question'];
     progressCounter.innerHTML = `${data.questionNumber+1} of ${questionsArray.length}`;
+    
+    ulEl.innerHTML ='';
+    
+    let liElements = [];
+    let labelElements = [];
+    let inputElements = [];
 
-    liCreate.setAttribute("class", "li");
-    labelCreate.setAttribute("for", `radiobutton${data.questionNumber}`);
-    inputCreate.setAttribute("type", "radio");
-    inputCreate.setAttribute("id", `radiobutton${data.questionNumber}`);
-    inputCreate.setAttribute("name", `answers`);
-    liCreate.appendChild(labelCreate);
-    ulEl.appendChild(liCreate);
-    labelCreate.appendChild(inputCreate);
-    labelCreate.insertAdjacentHTML('beforeend', "AAAAA");
+    for (let i = 0; i < questionsArray[data.questionNumber].answers.length; i++) {
+
+        liElements[i] = document.createElement("li");
+        labelElements[i] = document.createElement("label");
+        inputElements[i] = document.createElement("input");
+
+        ulEl.appendChild(liElements[i]);
+        liElements[i].appendChild(labelElements[i]);
+        labelElements[i].appendChild(inputElements[i]);
+
+        liElements[i].setAttribute("class", "li");
+        labelElements[i].setAttribute("for", `radiobutton${i}`);
+        inputElements[i].setAttribute("type", "radio");
+        inputElements[i].setAttribute("id", `radiobutton${i}`);
+        inputElements[i].setAttribute("name", `answers`);
+        labelElements[i].insertAdjacentHTML('beforeend', "AAAAA");
+
+    }
+
 }
 
 load();
