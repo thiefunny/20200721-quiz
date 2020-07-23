@@ -14,3 +14,5 @@ question2obj.question = "pytanie z pierwszego objektu";
 question2obj.answers = ["question2obj - 1?", "question2obj - 2?", "question2obj - 3?"],
 question2obj.trueanswer = 2;
 
+const questionsArray = [question1obj, question2obj];
+
