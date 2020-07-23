@@ -5,19 +5,19 @@ const questionScheme = {
 }
 
 const question1obj = Object.create(questionScheme);
-question1obj.question = "pytanie z pierwszego objektu";
-question1obj.answers = ["question1obj - 1?", "question1obj - 2?", "question1obj - 3?"],
-    question1obj.trueanswer = 0;
+question1obj.question = "Jak ma na imię Mikołaj?";
+question1obj.answers = ["Kacper", "Marcin", "Mikołaj", "Filip"],
+    question1obj.trueanswer = 2;
 
 const question2obj = Object.create(questionScheme);
-question2obj.question = "pytanie z drugiego objektu";
-question2obj.answers = ["question2obj - 1?", "question2obj - 2?", "question2obj - 3?", "question2obj - 4?"],
+question2obj.question = "Gdybyś był wilkiem, to kim byś był?";
+question2obj.answers = ["Słoniem", "Wilkiem", "Słoniem"],
     question2obj.trueanswer = 1;
 
 const question3obj = Object.create(questionScheme);
-question3obj.question = "pytanie z trzeciego objektu";
-question3obj.answers = ["question3obj - 1?", "question3obj - 2?", "question3obj - 3?", "question3obj - 4?", "question3obj - 5?"],
-    question3obj.trueanswer = 2;
+question3obj.question = "Co lubisz na deser?";
+question3obj.answers = ["tylko to", "tego nie", "to jest ohydne", "tego bym nie dotknął, choćbym się ze$ał", "to jest na drugim miejscu"],
+    question3obj.trueanswer = 0;
 
 const questionsArray = [question1obj, question2obj, question3obj];
 
@@ -31,6 +31,7 @@ const submitButton = document.querySelector(".next");
 const resetButton = document.querySelector(".reset");
 const h1El = document.querySelector("h1");
 const ulEl = document.querySelector("ul");
+const fieldEl = document.querySelector("fieldset");
 const progressCounter = document.querySelector(".progress__counter");
 
 load = () => {
@@ -64,6 +65,10 @@ load = () => {
 
     }
 
+    submitButton.classList.remove("hide");
+    fieldEl.classList.remove("hide");
+    resetButton.innerHTML = "zacznij test jeszcze raz"
+
 }
 
 load();
@@ -73,34 +78,35 @@ calculate = () => {
     for (let elem of radio) {
 
         if (elem.checked) {
-
             data.radioChecked = Number(elem.value);
-            // console.log(`checked ${elem.value}`)
-
         } else {
-            
             data.radioChecked = null
-
         }
-        // console.log(`data.radioChecked = ${data.radioChecked}`)
-        // console.log(`questionsArray[data.questionNumber].trueanswer = ${questionsArray[data.questionNumber].trueanswer}`)
+
         if (data.radioChecked === questionsArray[data.questionNumber].trueanswer) {
             console.log('HURA');
             data.sum++
-            
-        // } else {
-            // console.log("bzik")
-        // }
-
     }
     console.log(data.sum);
 }}
 
+results = () => {
+    h1El.innerHTML = `KONIEC TESTU`;
+    progressCounter.innerHTML = `Twój wynik to ${Math.round(data.sum / questionsArray.length * 100)}%`;
+    submitButton.classList.add("hide");
+    fieldEl.classList.add("hide");
+    resetButton.innerHTML = "CHCĘ JESZCZE RAZ!!!"
+}
+
 next = () => {
+    console.log(data.questionNumber, questionsArray.length)
+    if (data.questionNumber < questionsArray.length-1) {
     data.questionNumber++;
-    // console.log(data.questionNumber);
-    // calculate();
     load();
+    }
+    else {
+        results()
+    }
 }
 
 reset = () => {
@@ -119,4 +125,5 @@ submitButton.addEventListener("click", function () {
 resetButton.addEventListener("click", function () {
 
     reset();
+    
 })
